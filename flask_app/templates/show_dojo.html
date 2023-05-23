@@ -19,13 +19,24 @@
                 <div class="ml-24 text-white w-1/2">
 
                         <h2 class="mb-8 text-4xl font-semibold text-left">{{dojo.name}} Ninjas</h2>
-                        <div class="border-2 border-white py-4 px-16 rounded-md space-y-2 flex flex-col mb-4 h-72 ">
-                            {% for ninja in dojo.ninjas %}
-
-                            <p class="underline text-blue-400 text-lg">{{ninja.first_name}}</p>
-
-                            {% endfor %}
-                        </div>
+                        <table class="border-2 border-white rounded-md mb-4">
+                            <thead>
+                                <tr>
+                                    <th class="px-4 py-2">First Name</th>
+                                    <th class="px-4 py-2">Last Name</th>
+                                    <th class="px-4 py-2">Age Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ninja in dojo.ninjas %}
+                                <tr>
+                                    <td class="px-4 py-2">{{ ninja.first_name }}</td>
+                                    <td class="px-4 py-2">{{ ninja.last_name }}</td>
+                                    <td class="px-4 py-2">{{ ninja.age }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                          </table>
                         <p class="text-left"><a href="/dojos" class="underline text-blue-500 mt-8">Home</a></p>
 
                 </div>
