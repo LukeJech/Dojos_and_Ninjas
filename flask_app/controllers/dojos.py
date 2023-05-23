@@ -1,16 +1,37 @@
 from flask_app import app
 from flask import render_template, redirect, request, session
-from flask_app.models import user # import entire file, rather than class, to avoid circular imports
+from flask_app.models import dojo, ninja # import entire file, rather than class, to avoid circular imports
 
 # Create Users Controller
+@app.route('/process/dojo', methods=['POST'])
+def create_dojo():
+    dojo.Dojos.create_dojo(request.form)
+    return redirect('/dojos')
+
+@app.route('/process/ninja', methods=['POST'])
+def create_ninja():
+    ninja.Ninja.create_ninja(request.form)
+    return redirect(f"/dojos/{request.form['dojo_id']}")
 
 
 
 # Read Users Controller
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.route('/dojos')
+def show_dojos():
+    dojos = dojo.Dojos.get_all_dojos()
+    return render_template('dojos.html', dojos = dojos)
+
+@app.route('/dojos/<int:dojo_id>')
+def show_dojo(dojo_id):
+    return render_template('show_dojo.html', dojo = dojo.Dojos.get_dojos_with_ninjas(dojo_id))
+
+@app.route('/ninjas')
+def show_ninja_page():
+    dojos = dojo.Dojos.get_all_dojos()
+    return render_template('ninjas.html', dojos = dojos)
+
+
 
 
 # Update Users Controller
